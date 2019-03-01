@@ -3,6 +3,8 @@
 #include <vector>
 #include "State.h"
 
+using namespace std;
+
 class PuzzleState : public State
 {
 private:

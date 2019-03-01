@@ -1,6 +1,6 @@
-#include "pch.h"
 #include "EightPuzzleProblem.h"
 
+//using namespace std;
 
 EightPuzzleProblem::EightPuzzleProblem()
 {
@@ -20,7 +20,7 @@ bool EightPuzzleProblem::GoalTest(PuzzleState state)
 {
 	for (int i = 0; i < STATE_SIZE; i++)
 	{
-		if (state.StateData[i] != i)
+		if (state.StateData()[i] != i)
 			return false;
 	}
 	return true;
@@ -43,7 +43,7 @@ void EightPuzzleProblem::Swap(int& a, int& b)
 PuzzleState* EightPuzzleProblem::Result(PuzzleState currentState, MoveAction action)
 {
 	int emptyTileLocation = LocateEmptyTile(currentState.StateData()); // locate the empty tile
-	vector<int> newStateData(currentState.StateData); // copy of currentState that we can manipulate and return
+	vector<int> newStateData(currentState.StateData()); // copy of currentState that we can manipulate and return
 
 	switch (action.GetType())
 	{
