@@ -18,6 +18,7 @@ int EightPuzzleProblem::LocateEmptyTile(vector<int> state)
 	{
 		if (state[i] == 0) return i;
 	}
+	return -1;
 }
 
 void EightPuzzleProblem::Swap(int& a, int& b)
@@ -25,12 +26,12 @@ void EightPuzzleProblem::Swap(int& a, int& b)
 	swap(a, b);
 }
 
-vector<int> EightPuzzleProblem::Result(static vector<int> currentState, Action action)
+vector<int> EightPuzzleProblem::Result(const vector<int> currentState, MoveAction action)
 {
 	int emptyTileLocation = LocateEmptyTile(currentState); // locate the empty tile
 	vector<int> newState (currentState); // copy of currentState that we can manipulate and return
 
-	switch (action)
+	switch (action.GetType())
 	{
 	case EightPuzzleProblem::Left:
 		if (emptyTileLocation == 0 || emptyTileLocation == 3 || emptyTileLocation == 6)

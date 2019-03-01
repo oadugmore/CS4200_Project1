@@ -4,6 +4,9 @@
 #include "pch.h"
 #include <iostream>
 #include "EightPuzzleProblem.h"
+#include "AStarSearch.h"
+#include "MisplacedTilesHeuristic.h"
+#include "TileDistanceHeuristic.h"
 
 void printState(vector<int> state)
 {
@@ -17,12 +20,17 @@ int main()
 {
     std::cout << "Hello World!\n"; 
 	EightPuzzleProblem problem;
+	MisplacedTilesHeuristic h1;
+	TileDistanceHeuristic h2;
+	AStarSearch search;
+	unique_ptr<AStarSearch::Solution> solution(search.Search(problem, h1));
 	vector<int> sampleState({ 0, 1, 2, 3, 4, 5, 6, 7, 8 });
 	cout << "Sample state: \n";
 	printState(sampleState);
-	vector<int> newState = problem.Result(sampleState, EightPuzzleProblem::Down);
+	vector<int> newState = problem.Result(sampleState, EightPuzzleProblem::MoveAction(EightPuzzleProblem::Down));
 	cout << "Ran result function. Sample state: \n";
 	printState(sampleState);
 	cout << "New state:\n";
 	printState(newState);
+	
 }

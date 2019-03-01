@@ -10,13 +10,17 @@ class Node
 {
 private:
 	//vector<int> state;
-	int state[9];
+	//int state[9];
+	State state;
 	Node* parent;
-	EightPuzzleProblem::Action action;
-	int pathCost;
+	//EightPuzzleProblem::MoveAction action;
+	Action action;
+	int pathCost; // g(n)
+	int estimatedCost; // g(n) + h(n)
 	int depth;
 public:
 	Node();
+	Node(State initialState, int pathCost);
 	~Node();
 };
 

@@ -2,23 +2,35 @@
 
 #include <exception>
 #include <vector>
+#include "Action.h"
+#include "Problem.h"
 
 const int STATE_SIZE = 9;
 
 using namespace std;
 
-class EightPuzzleProblem
+class EightPuzzleProblem : public Problem
 {
+private:
+	int LocateEmptyTile(vector<int> state);
+	void Swap(int & a, int & b);
 public:
-	enum Action
+	enum MoveActionType
 	{
-		Left, Right, Up, Down
+		Up, Down, Left, Right
+	};
+	class MoveAction : public Action
+	{
+	private:
+		MoveActionType type;
+	public:
+		MoveActionType GetType() { return type; }
+		MoveAction() { };
+		MoveAction(MoveActionType type) { this->type = type; }
 	};
 	exception InvalidMoveException;
 	EightPuzzleProblem();
 	~EightPuzzleProblem();
-	int LocateEmptyTile(vector<int> state);
-	void Swap(int & a, int & b);
-	vector<int> Result(vector<int> currentState, Action action);
+	vector<int> Result(vector<int> currentState, MoveAction action);
 };
 
