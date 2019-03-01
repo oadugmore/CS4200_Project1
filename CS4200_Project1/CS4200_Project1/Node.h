@@ -1,10 +1,7 @@
 #pragma once
 
-#include "EightPuzzleProblem.h"
-
-using namespace std;
-
-
+#include "State.h"
+#include "Action.h"
 
 class Node
 {

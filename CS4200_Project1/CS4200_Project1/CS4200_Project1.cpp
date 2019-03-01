@@ -24,13 +24,14 @@ int main()
 	TileDistanceHeuristic h2;
 	AStarSearch search;
 	unique_ptr<AStarSearch::Solution> solution(search.Search(problem, h1));
-	vector<int> sampleState({ 0, 1, 2, 3, 4, 5, 6, 7, 8 });
+	vector<int> sampleStateData({ 0, 1, 2, 3, 4, 5, 6, 7, 8 });
+	PuzzleState sampleState(sampleStateData);
 	cout << "Sample state: \n";
-	printState(sampleState);
-	vector<int> newState = problem.Result(sampleState, EightPuzzleProblem::MoveAction(EightPuzzleProblem::Down));
+	printState(sampleStateData);
+	unique_ptr<PuzzleState> newState (problem.Result(sampleState, MoveAction(MoveAction::Down)));
 	cout << "Ran result function. Sample state: \n";
-	printState(sampleState);
+	printState(sampleStateData);
 	cout << "New state:\n";
-	printState(newState);
+	printState(newState->StateData());
 	
 }

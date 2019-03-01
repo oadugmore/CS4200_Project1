@@ -2,7 +2,6 @@
 #include "EightPuzzleProblem.h"
 
 
-
 EightPuzzleProblem::EightPuzzleProblem()
 {
 }
@@ -12,11 +11,26 @@ EightPuzzleProblem::~EightPuzzleProblem()
 {
 }
 
-int EightPuzzleProblem::LocateEmptyTile(vector<int> state)
+State EightPuzzleProblem::InitialState() 
+{ 
+	return initialState; 
+}
+
+bool EightPuzzleProblem::GoalTest(PuzzleState state)
 {
 	for (int i = 0; i < STATE_SIZE; i++)
 	{
-		if (state[i] == 0) return i;
+		if (state.StateData[i] != i)
+			return false;
+	}
+	return true;
+}
+
+int EightPuzzleProblem::LocateEmptyTile(vector<int> stateData)
+{
+	for (int i = 0; i < STATE_SIZE; i++)
+	{
+		if (stateData[i] == 0) return i;
 	}
 	return -1;
 }
@@ -26,43 +40,43 @@ void EightPuzzleProblem::Swap(int& a, int& b)
 	swap(a, b);
 }
 
-vector<int> EightPuzzleProblem::Result(const vector<int> currentState, MoveAction action)
+PuzzleState* EightPuzzleProblem::Result(PuzzleState currentState, MoveAction action)
 {
-	int emptyTileLocation = LocateEmptyTile(currentState); // locate the empty tile
-	vector<int> newState (currentState); // copy of currentState that we can manipulate and return
+	int emptyTileLocation = LocateEmptyTile(currentState.StateData()); // locate the empty tile
+	vector<int> newStateData(currentState.StateData); // copy of currentState that we can manipulate and return
 
 	switch (action.GetType())
 	{
-	case EightPuzzleProblem::Left:
+	case MoveAction::Left:
 		if (emptyTileLocation == 0 || emptyTileLocation == 3 || emptyTileLocation == 6)
 		{
-			throw InvalidMoveException;
+			//throw MoveAction::InvalidMoveException;
 		}
-		Swap(newState[emptyTileLocation], newState[emptyTileLocation - 1]);
+		Swap(newStateData[emptyTileLocation], newStateData[emptyTileLocation - 1]);
 		break;
-	case EightPuzzleProblem::Right:
+	case MoveAction::Right:
 		if (emptyTileLocation == 2 || emptyTileLocation == 5 || emptyTileLocation == 8)
 		{
-			throw InvalidMoveException;
+			//throw MoveAction::InvalidMoveException;
 		}
-		Swap(newState[emptyTileLocation], newState[emptyTileLocation + 1]);
+		Swap(newStateData[emptyTileLocation], newStateData[emptyTileLocation + 1]);
 		break;
-	case EightPuzzleProblem::Up:
+	case MoveAction::Up:
 		if (emptyTileLocation >= 0 && emptyTileLocation <= 2)
 		{
-			throw InvalidMoveException;
+			//throw MoveAction::InvalidMoveException;
 		}
-		Swap(newState[emptyTileLocation], newState[emptyTileLocation - 3]);
+		Swap(newStateData[emptyTileLocation], newStateData[emptyTileLocation - 3]);
 		break;
-	case EightPuzzleProblem::Down:
+	case MoveAction::Down:
 		if (emptyTileLocation >= 6 && emptyTileLocation <= 8)
 		{
-			throw InvalidMoveException;
+			//throw MoveAction::InvalidMoveException;
 		}
-		Swap(newState[emptyTileLocation], newState[emptyTileLocation + 3]);
+		Swap(newStateData[emptyTileLocation], newStateData[emptyTileLocation + 3]);
 		break;
 	default:
 		break;
 	}
-	return newState;
+	return new PuzzleState(newStateData);
 }

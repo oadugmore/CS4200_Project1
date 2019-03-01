@@ -6,8 +6,7 @@ class Problem
 {
 	
 public:
-	template<class T>
-	bool GoalTest(T state);
-	virtual State InitialState() { return State(); }
+	virtual bool GoalTest(State state);
+	virtual State InitialState();
 };
 
