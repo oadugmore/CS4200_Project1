@@ -14,12 +14,13 @@ void printState(vector<int> state)
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+    std::cout << "Hello World!\n";
 	EightPuzzleProblem problem;
 	MisplacedTilesHeuristic h1;
 	TileDistanceHeuristic h2;
 	AStarSearch search;
-	unique_ptr<AStarSearch::Solution> solution(search.Search(problem, h1));
+	unique_ptr<AStarSearch::Solution> solution(AStarSearch::Search(problem, h1));
+	// solution(search.Search(problem, h1));
 	vector<int> sampleStateData({ 0, 1, 2, 3, 4, 5, 6, 7, 8 });
 	PuzzleState sampleState(sampleStateData);
 	cout << "Sample state: \n";
