@@ -40,13 +40,28 @@ vector<int> EightPuzzleProblem::Result(static vector<int> currentState, Action a
 		Swap(newState[emptyTileLocation], newState[emptyTileLocation - 1]);
 		break;
 	case EightPuzzleProblem::Right:
+		if (emptyTileLocation == 2 || emptyTileLocation == 5 || emptyTileLocation == 8)
+		{
+			throw InvalidMoveException;
+		}
+		Swap(newState[emptyTileLocation], newState[emptyTileLocation + 1]);
 		break;
 	case EightPuzzleProblem::Up:
+		if (emptyTileLocation >= 0 && emptyTileLocation <= 2)
+		{
+			throw InvalidMoveException;
+		}
+		Swap(newState[emptyTileLocation], newState[emptyTileLocation - 3]);
 		break;
 	case EightPuzzleProblem::Down:
+		if (emptyTileLocation >= 6 && emptyTileLocation <= 8)
+		{
+			throw InvalidMoveException;
+		}
+		Swap(newState[emptyTileLocation], newState[emptyTileLocation + 3]);
 		break;
 	default:
 		break;
 	}
-	
+	return newState;
 }
