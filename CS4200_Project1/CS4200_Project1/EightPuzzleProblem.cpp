@@ -1,15 +1,8 @@
 #include "EightPuzzleProblem.h"
 
-//using namespace std;
-
 EightPuzzleProblem::EightPuzzleProblem(PuzzleState initialState)
 {
 	this->initialState = initialState;
-}
-
-
-EightPuzzleProblem::~EightPuzzleProblem()
-{
 }
 
 State EightPuzzleProblem::InitialState() 

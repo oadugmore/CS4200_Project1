@@ -4,7 +4,6 @@
 #include "MisplacedTilesHeuristic.h"
 #include "TileDistanceHeuristic.h"
 
-//using namespace std;
 
 void printState(vector<int> state)
 {
@@ -16,7 +15,7 @@ void printState(vector<int> state)
 
 int main()
 {
-    std::cout << "Program: Eight-Puzzle-Problem" << endl;
+    std::cout << "Program: Eight-Puzzle-Problem" << endl << endl;
 	vector<int> sampleStateData({ 0, 1, 2, 3, 4, 5, 6, 7, 8 });
 	PuzzleState sampleState(sampleStateData);
 	EightPuzzleProblem problem(sampleState);
@@ -24,15 +23,17 @@ int main()
 	TileDistanceHeuristic h2;
 	AStarSearch search;
 	unique_ptr<AStarSearch::Solution> solution(AStarSearch::Search(problem, h1));
-	//unique_ptr<PuzzleState> solutionState(static_cast<PuzzleState*>(solution->finalNode.GetState()));
+	unique_ptr<PuzzleState> solutionState(static_cast<PuzzleState*>(solution->finalNode->GetState()));
 	//cout << solutionState << endl;
 	// solution(search.Search(problem, h1));
-	cout << "Sample state: \n";
+	cout << "Start state: \n";
 	printState(sampleStateData);
+	cout << endl << "Move down" << endl << endl;
 	unique_ptr<PuzzleState> newState (problem.Result(sampleState, MoveAction(MoveAction::Down)));
 	//cout << "Ran result function. Sample state: \n";
 	//printState(sampleStateData);
 	cout << "New state:\n";
 	printState(newState->StateData());
 	
+	return 0;
 }

@@ -16,9 +16,18 @@ private:
 	int estimatedCost; // g(n) + h(n)
 	int depth;
 public:
-	Node();
 	Node(State initialState, int pathCost);
+	Node() {}
+	//~Node();
 	State* GetState();
-	~Node();
+	int GetEstimatedCost();
 };
 
+class CompareNodes
+{
+public:
+	bool operator() (Node a, Node b)
+	{
+		return a.GetEstimatedCost() > b.GetEstimatedCost();
+	}
+};

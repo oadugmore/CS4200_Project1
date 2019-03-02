@@ -11,7 +11,7 @@ class AStarSearch
 public:
 	struct Solution
 	{
-		Node finalNode;
+		Node* finalNode;
 	};
 	static Solution* Search(Problem problem, Heuristic heuristic);
 	static Node* ChildNode(Problem problem, Heuristic heuristic, Node parent, Action action);

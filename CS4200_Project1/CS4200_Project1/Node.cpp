@@ -1,22 +1,22 @@
 #include "Node.h"
 
-
-Node::Node()
-{
-}
-
 Node::Node(State initialState, int pathCost)
 {
 	this->state = initialState;
 	this->pathCost = pathCost;
 }
 
+//Node::~Node()
+//{
+//	if (parent != nullptr) delete parent;
+//}
+
 State* Node::GetState()
 {
 	return &state;
 }
 
-
-Node::~Node()
+int Node::GetEstimatedCost()
 {
+	return estimatedCost;
 }

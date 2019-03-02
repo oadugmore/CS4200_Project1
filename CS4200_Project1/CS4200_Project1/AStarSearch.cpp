@@ -4,19 +4,18 @@
 
 using namespace std;
 
-
 AStarSearch::Solution* AStarSearch::Search(Problem problem, Heuristic heuristic)
 {
 	
-	unique_ptr<Node> node((problem.InitialState(), 0);
-	priority_queue<Node> frontier;
-	Solution* solution = new Solution;
+	unique_ptr<Node> node(new Node(problem.InitialState(), 0));
+	priority_queue<Node, vector<Node>, CompareNodes> frontier;
+	Solution* solution = new Solution();
 	vector<Node> exploredSet;
-	frontier.push(node);
+	frontier.push(*node);
 
 	while (!frontier.empty())
 	{
-
+		frontier.pop();
 	}
 
 	return solution;
