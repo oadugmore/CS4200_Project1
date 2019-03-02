@@ -4,6 +4,8 @@
 #include "MisplacedTilesHeuristic.h"
 #include "TileDistanceHeuristic.h"
 
+//using namespace std;
+
 void printState(vector<int> state)
 {
 	for (int i = 0; i < STATE_SIZE; i += 3)
@@ -14,20 +16,22 @@ void printState(vector<int> state)
 
 int main()
 {
-    std::cout << "Hello World!\n";
-	EightPuzzleProblem problem;
+    std::cout << "Program: Eight-Puzzle-Problem" << endl;
+	vector<int> sampleStateData({ 0, 1, 2, 3, 4, 5, 6, 7, 8 });
+	PuzzleState sampleState(sampleStateData);
+	EightPuzzleProblem problem(sampleState);
 	MisplacedTilesHeuristic h1;
 	TileDistanceHeuristic h2;
 	AStarSearch search;
 	unique_ptr<AStarSearch::Solution> solution(AStarSearch::Search(problem, h1));
+	//unique_ptr<PuzzleState> solutionState(static_cast<PuzzleState*>(solution->finalNode.GetState()));
+	//cout << solutionState << endl;
 	// solution(search.Search(problem, h1));
-	vector<int> sampleStateData({ 0, 1, 2, 3, 4, 5, 6, 7, 8 });
-	PuzzleState sampleState(sampleStateData);
 	cout << "Sample state: \n";
 	printState(sampleStateData);
 	unique_ptr<PuzzleState> newState (problem.Result(sampleState, MoveAction(MoveAction::Down)));
-	cout << "Ran result function. Sample state: \n";
-	printState(sampleStateData);
+	//cout << "Ran result function. Sample state: \n";
+	//printState(sampleStateData);
 	cout << "New state:\n";
 	printState(newState->StateData());
 	

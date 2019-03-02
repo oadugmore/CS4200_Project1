@@ -2,8 +2,9 @@
 
 //using namespace std;
 
-EightPuzzleProblem::EightPuzzleProblem()
+EightPuzzleProblem::EightPuzzleProblem(PuzzleState initialState)
 {
+	this->initialState = initialState;
 }
 
 
@@ -50,28 +51,28 @@ PuzzleState* EightPuzzleProblem::Result(PuzzleState currentState, MoveAction act
 	case MoveAction::Left:
 		if (emptyTileLocation == 0 || emptyTileLocation == 3 || emptyTileLocation == 6)
 		{
-			//throw MoveAction::InvalidMoveException;
+			throw MoveAction::InvalidMoveException();
 		}
 		Swap(newStateData[emptyTileLocation], newStateData[emptyTileLocation - 1]);
 		break;
 	case MoveAction::Right:
 		if (emptyTileLocation == 2 || emptyTileLocation == 5 || emptyTileLocation == 8)
 		{
-			//throw MoveAction::InvalidMoveException;
+			throw MoveAction::InvalidMoveException();
 		}
 		Swap(newStateData[emptyTileLocation], newStateData[emptyTileLocation + 1]);
 		break;
 	case MoveAction::Up:
 		if (emptyTileLocation >= 0 && emptyTileLocation <= 2)
 		{
-			//throw MoveAction::InvalidMoveException;
+			throw MoveAction::InvalidMoveException();
 		}
 		Swap(newStateData[emptyTileLocation], newStateData[emptyTileLocation - 3]);
 		break;
 	case MoveAction::Down:
 		if (emptyTileLocation >= 6 && emptyTileLocation <= 8)
 		{
-			//throw MoveAction::InvalidMoveException;
+			throw MoveAction::InvalidMoveException();
 		}
 		Swap(newStateData[emptyTileLocation], newStateData[emptyTileLocation + 3]);
 		break;

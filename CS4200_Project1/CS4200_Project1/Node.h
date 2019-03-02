@@ -18,6 +18,7 @@ private:
 public:
 	Node();
 	Node(State initialState, int pathCost);
+	State* GetState();
 	~Node();
 };
 

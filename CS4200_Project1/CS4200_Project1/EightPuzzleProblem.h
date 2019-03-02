@@ -18,7 +18,7 @@ private:
 public:
 	bool GoalTest(PuzzleState state);
 	State InitialState();
-	EightPuzzleProblem();
+	EightPuzzleProblem(PuzzleState initialState);
 	~EightPuzzleProblem();
 	PuzzleState* Result(PuzzleState currentState, MoveAction action);
 };

@@ -3,6 +3,8 @@
 #include "Action.h"
 #include <exception>
 
+using namespace std;
+
 class MoveAction : public Action
 {
 public:
@@ -10,10 +12,11 @@ public:
 	{
 		Up, Down, Left, Right
 	};
-	//static exception InvalidMoveException;
+	struct InvalidMoveException : public exception { };
+	//std::exception InvalidMoveException;
 	MoveActionType GetType() { return type; }
 	MoveAction(MoveActionType type) { this->type = type; }
-	MoveAction();
+	//MoveAction();
 private:
 	MoveActionType type;
 };

@@ -1,22 +1,23 @@
 #include "AStarSearch.h"
+#include <iostream>
 #include <queue>
 
 using namespace std;
 
-AStarSearch::AStarSearch()
-{
-}
-
-
-AStarSearch::~AStarSearch()
-{
-}
 
 AStarSearch::Solution* AStarSearch::Search(Problem problem, Heuristic heuristic)
 {
-	Node node(problem.InitialState(), 0);
+	
+	unique_ptr<Node> node((problem.InitialState(), 0);
 	priority_queue<Node> frontier;
 	Solution* solution = new Solution;
+	vector<Node> exploredSet;
+	frontier.push(node);
+
+	while (!frontier.empty())
+	{
+
+	}
 
 	return solution;
 }

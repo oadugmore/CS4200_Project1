@@ -11,6 +11,11 @@ Node::Node(State initialState, int pathCost)
 	this->pathCost = pathCost;
 }
 
+State* Node::GetState()
+{
+	return &state;
+}
+
 
 Node::~Node()
 {
