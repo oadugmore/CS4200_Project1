@@ -21,7 +21,7 @@ int main()
 	EightPuzzleProblem problem(sampleState);
 	MisplacedTilesHeuristic h1;
 	TileDistanceHeuristic h2;
-	unique_ptr<AStarSearch::Solution> solution(AStarSearch::Search(&problem, h1));
+	unique_ptr<AStarSearch::Solution> solution(AStarSearch::Search(&problem, &h1));
 	//cout << solutionState << endl;
 	// solution(search.Search(problem, h1));
 	cout << "Start state: \n";
@@ -32,14 +32,15 @@ int main()
 	//printState(sampleStateData);
 	//cout << "New state:\n";
 	//printState(newState->StateData());
-	Node* n = solution->finalNode;
-	unique_ptr<PuzzleState> state(static_cast<PuzzleState*>(n->GetState()));
+	Node n = solution->finalNode;
+	unique_ptr<PuzzleState> state(static_cast<PuzzleState*>(n.GetState()));
 	cout << "Path from goal to start state:" << endl << endl;
 	printState(*state);
-	while (n = n->GetParent())
+	for (int i = 0; i < solution->finalNode.GetPathCost(); i++)
 	{
+		n = *n.GetParent();
 		cout << endl << endl;
-		printState(*(static_cast<PuzzleState*>(n->GetState())));
+		printState(*(static_cast<PuzzleState*>(n.GetState())));
 	}
 	
 	return 0;

@@ -10,13 +10,15 @@ State* EightPuzzleProblem::InitialState()
 	return &initialState; 
 }
 
-vector<Action> EightPuzzleProblem::GetActions()
+vector<Action*> EightPuzzleProblem::GetActions()
 {
-	vector<Action> actions;//({ MoveAction::Down, MoveAction::Up, MoveAction::Right, MoveAction::Left });
+	vector<Action*> actions;
 	for (int i = 0; i < 4; i++)
 	{
-		actions.push_back(MoveAction(static_cast<MoveAction::MoveActionType>(i)));
+		MoveAction* a = new MoveAction(static_cast<MoveAction::MoveActionType>(i)); // delete heap data
+		actions.push_back(a);
 	}
+	//return static_cast<vector<Action>*>(actions);
 	return actions;
 }
 
@@ -44,13 +46,13 @@ void EightPuzzleProblem::Swap(int& a, int& b)
 	swap(a, b);
 }
 
-State* EightPuzzleProblem::Result(State* currentState, Action action)
+State* EightPuzzleProblem::Result(State* currentState, Action* action)
 {
 	PuzzleState* state = static_cast<PuzzleState*>(currentState);
 	int emptyTileLocation = LocateEmptyTile(state->StateData()); // locate the empty tile
 	vector<int> newStateData(state->StateData()); // copy of currentState that we can manipulate and return
 
-	switch (static_cast<MoveAction*>(&action)->GetType())
+	switch (static_cast<MoveAction*>(action)->GetType())
 	{
 	case MoveAction::Left:
 		if (emptyTileLocation == 0 || emptyTileLocation == 3 || emptyTileLocation == 6)

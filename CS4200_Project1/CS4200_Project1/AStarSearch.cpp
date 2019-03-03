@@ -4,13 +4,13 @@
 
 using namespace std;
 
-AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic heuristic)
+AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristic)
 {
-	unique_ptr<Node> node(new Node(problem->InitialState(), nullptr, Action(), 0)); // might need to be shared_ptr?
+	shared_ptr<Node> node(new Node(problem->InitialState(), nullptr, nullptr, 0, 0)); // might need to be shared_ptr?
 	priority_queue<Node, vector<Node>, CompareNodes> frontier;
 	vector<Node> frontierList; // for searching the frontier
 	Solution* solution = new Solution();
-	vector<Action> actions = problem->GetActions();
+	vector<Action*> actions = problem->GetActions();
 	vector<Node> exploredSet;
 	frontier.push(*node);
 	frontierList.push_back(*node);
@@ -21,7 +21,7 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic heuristic
 		frontier.pop();
 		if (problem->GoalTest(node->GetState()))
 		{
-			solution->finalNode = &(*node);
+			solution->finalNode = *node;
 			break;
 		}
 
@@ -71,7 +71,7 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic heuristic
 	return solution;
 }
 
-Node* AStarSearch::ChildNode(Problem* problem, Heuristic heuristic, Node* parent, Action action)
+Node* AStarSearch::ChildNode(Problem* problem, Heuristic* heuristic, Node* parent, Action* action)
 {
 	//Node* parent = new Node(parent);
 	State* state; 
@@ -84,7 +84,7 @@ Node* AStarSearch::ChildNode(Problem* problem, Heuristic heuristic, Node* parent
 		return nullptr;
 	}
 	
-	int estCost = parent->GetPathCost() + heuristic.Estimate(state);
-	Node* child = new Node(state, parent, action, estCost);
+	int estCost = parent->GetPathCost() + heuristic->Estimate(state);
+	Node* child = new Node(state, parent, action, parent->GetPathCost() + 1, estCost);
 	return child;
 }

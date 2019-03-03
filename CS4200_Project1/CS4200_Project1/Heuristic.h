@@ -4,6 +4,6 @@
 class Heuristic
 {
 public:
-	virtual int Estimate(State* state) { return 0; }
+	virtual int Estimate(State* state) = 0;
 };
 

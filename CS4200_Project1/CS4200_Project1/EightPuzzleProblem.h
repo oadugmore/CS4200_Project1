@@ -19,7 +19,7 @@ public:
 	bool GoalTest(State* state);
 	State* InitialState();
 	EightPuzzleProblem(PuzzleState initialState);
-	State* Result(State* currentState, Action action);
-	vector<Action> GetActions();
+	State* Result(State* currentState, Action* action);
+	vector<Action*> GetActions();
 };
 

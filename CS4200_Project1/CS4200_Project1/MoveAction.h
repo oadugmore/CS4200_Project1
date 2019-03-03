@@ -13,10 +13,9 @@ public:
 		Up, Down, Left, Right
 	};
 	struct InvalidMoveException : public exception { };
-	//std::exception InvalidMoveException;
 	MoveActionType GetType() { return type; }
 	MoveAction(MoveActionType type) { this->type = type; }
-	//MoveAction();
+	void Dummy() {}
 private:
 	MoveActionType type;
 };
