@@ -20,5 +20,6 @@ public:
 	State InitialState();
 	EightPuzzleProblem(PuzzleState initialState);
 	PuzzleState* Result(PuzzleState currentState, MoveAction action);
+	vector<Action> GetActions();
 };
 

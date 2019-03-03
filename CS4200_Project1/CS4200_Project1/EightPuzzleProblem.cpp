@@ -10,6 +10,16 @@ State EightPuzzleProblem::InitialState()
 	return initialState; 
 }
 
+vector<Action> GetActions()
+{
+	vector<MoveAction> actions;//({ MoveAction::Down, MoveAction::Up, MoveAction::Right, MoveAction::Left });
+	for (int i = 0; i < 4; i++)
+	{
+		actions.push_back(MoveAction(static_cast<MoveAction::MoveActionType>(i)));
+	}
+	return static_cast<vector<Action>>(actions);
+}
+
 bool EightPuzzleProblem::GoalTest(PuzzleState state)
 {
 	for (int i = 0; i < STATE_SIZE; i++)
