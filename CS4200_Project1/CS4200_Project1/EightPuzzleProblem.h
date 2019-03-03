@@ -16,10 +16,10 @@ private:
 	int LocateEmptyTile(vector<int> stateData);
 	void Swap(int & a, int & b);
 public:
-	bool GoalTest(PuzzleState state);
-	State InitialState();
+	bool GoalTest(State* state);
+	State* InitialState();
 	EightPuzzleProblem(PuzzleState initialState);
-	PuzzleState* Result(PuzzleState currentState, MoveAction action);
+	State* Result(State* currentState, Action action);
 	vector<Action> GetActions();
 };
 

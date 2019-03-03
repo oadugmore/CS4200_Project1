@@ -8,7 +8,7 @@ class Node
 private:
 	//vector<int> state;
 	//int state[9];
-	State state;
+	State* state;
 	Node* parent;
 	//EightPuzzleProblem::MoveAction action;
 	Action action;
@@ -16,11 +16,13 @@ private:
 	int estimatedCost; // g(n) + h(n)
 	int depth;
 public:
-	Node(State initialState, int pathCost);
+	Node(State* state, Node* parent, Action action, int pathCost);
 	Node() {}
 	//~Node();
+	Node* GetParent();
 	State* GetState();
 	int GetEstimatedCost();
+	int GetPathCost();
 };
 
 class CompareNodes

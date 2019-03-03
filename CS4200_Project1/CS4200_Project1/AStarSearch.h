@@ -13,7 +13,8 @@ public:
 	{
 		Node* finalNode;
 	};
-	static Solution* Search(Problem problem, Heuristic heuristic);
-	static Node* ChildNode(Problem problem, Heuristic heuristic, Node parent, Action action);
+	static Solution* Search(Problem* problem, Heuristic heuristic);
+private:
+	static Node* ChildNode(Problem* problem, Heuristic heuristic, Node* parent, Action action);
 };
 

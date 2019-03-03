@@ -1,10 +1,11 @@
 #pragma once
 #include "Heuristic.h"
+#include "EightPuzzleProblem.h"
+
 class TileDistanceHeuristic :
 	public Heuristic
 {
 public:
-	TileDistanceHeuristic();
-	~TileDistanceHeuristic();
+	int Estimate(State* state);
 };
 

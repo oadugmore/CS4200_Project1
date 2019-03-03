@@ -10,8 +10,9 @@ class Problem
 {
 	
 public:
-	virtual bool GoalTest(State state) { return false; }
-	virtual State InitialState() { return State(); }
-	virtual vector<Action> GetActions() { return vector<Action>(); }
+	virtual bool GoalTest(State* state) = 0;
+	virtual State* InitialState() = 0;
+	virtual vector<Action> GetActions() = 0;
+	virtual State* Result(State* currentState, Action action) = 0;
 };
 

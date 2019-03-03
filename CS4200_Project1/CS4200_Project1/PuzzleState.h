@@ -12,6 +12,15 @@ private:
 public:
 	PuzzleState() {}
 	PuzzleState(vector<int> stateData) { this->stateData = stateData; }
-	~PuzzleState() {}
-	vector<int> StateData() { return stateData; }
+	vector<int> StateData() const { return stateData; }
+	bool State::operator==(const State &other)
+	{
+		for (int i = 0; i < stateData.size(); i++)
+		{
+			if (static_cast<const PuzzleState*>(&other)->StateData()[i] != stateData[i]) return false;
+			return true;
+		}
+		return false;
+	}
+	
 };

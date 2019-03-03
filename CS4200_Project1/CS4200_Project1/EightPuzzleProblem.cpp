@@ -5,26 +5,26 @@ EightPuzzleProblem::EightPuzzleProblem(PuzzleState initialState)
 	this->initialState = initialState;
 }
 
-State EightPuzzleProblem::InitialState() 
+State* EightPuzzleProblem::InitialState() 
 { 
-	return initialState; 
+	return &initialState; 
 }
 
-vector<Action> GetActions()
+vector<Action> EightPuzzleProblem::GetActions()
 {
-	vector<MoveAction> actions;//({ MoveAction::Down, MoveAction::Up, MoveAction::Right, MoveAction::Left });
+	vector<Action> actions;//({ MoveAction::Down, MoveAction::Up, MoveAction::Right, MoveAction::Left });
 	for (int i = 0; i < 4; i++)
 	{
 		actions.push_back(MoveAction(static_cast<MoveAction::MoveActionType>(i)));
 	}
-	return static_cast<vector<Action>>(actions);
+	return actions;
 }
 
-bool EightPuzzleProblem::GoalTest(PuzzleState state)
+bool EightPuzzleProblem::GoalTest(State* state)
 {
 	for (int i = 0; i < STATE_SIZE; i++)
 	{
-		if (state.StateData()[i] != i)
+		if (static_cast<PuzzleState*>(state)->StateData()[i] != i)
 			return false;
 	}
 	return true;
@@ -44,12 +44,13 @@ void EightPuzzleProblem::Swap(int& a, int& b)
 	swap(a, b);
 }
 
-PuzzleState* EightPuzzleProblem::Result(PuzzleState currentState, MoveAction action)
+State* EightPuzzleProblem::Result(State* currentState, Action action)
 {
-	int emptyTileLocation = LocateEmptyTile(currentState.StateData()); // locate the empty tile
-	vector<int> newStateData(currentState.StateData()); // copy of currentState that we can manipulate and return
+	PuzzleState* state = static_cast<PuzzleState*>(currentState);
+	int emptyTileLocation = LocateEmptyTile(state->StateData()); // locate the empty tile
+	vector<int> newStateData(state->StateData()); // copy of currentState that we can manipulate and return
 
-	switch (action.GetType())
+	switch (static_cast<MoveAction*>(&action)->GetType())
 	{
 	case MoveAction::Left:
 		if (emptyTileLocation == 0 || emptyTileLocation == 3 || emptyTileLocation == 6)
@@ -82,5 +83,5 @@ PuzzleState* EightPuzzleProblem::Result(PuzzleState currentState, MoveAction act
 	default:
 		break;
 	}
-	return new PuzzleState(newStateData);
+	return static_cast<State*>(new PuzzleState(newStateData));
 }

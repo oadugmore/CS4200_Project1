@@ -2,6 +2,6 @@
 class State
 {
 public:
-	State() {}
-	~State() {}
+
+	virtual bool operator==(const State &other) = 0;
 };
