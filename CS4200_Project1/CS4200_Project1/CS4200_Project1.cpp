@@ -16,12 +16,12 @@ void printState(PuzzleState state)
 int main()
 {
     std::cout << "Program: Eight-Puzzle-Problem" << endl << endl;
-	vector<int> sampleStateData({ 1, 0, 2, 3, 4, 5, 6, 7, 8 });
+	vector<int> sampleStateData({ 1, 4, 2, 3, 7, 5, 6, 8, 0 });
 	PuzzleState sampleState(sampleStateData);
 	EightPuzzleProblem problem(sampleState);
 	MisplacedTilesHeuristic h1;
 	TileDistanceHeuristic h2;
-	unique_ptr<AStarSearch::Solution> solution(AStarSearch::Search(&problem, &h1));
+	unique_ptr<AStarSearch::Solution> solution(AStarSearch::Search(&problem, &h2));
 	//cout << solutionState << endl;
 	// solution(search.Search(problem, h1));
 	cout << "Start state: \n";
@@ -42,6 +42,8 @@ int main()
 		cout << endl << endl;
 		printState(*(static_cast<PuzzleState*>(n.GetState())));
 	}
+
+	cout << endl << endl << "Number of nodes generated: " << solution->nodeCount << endl;
 	
 	return 0;
 }

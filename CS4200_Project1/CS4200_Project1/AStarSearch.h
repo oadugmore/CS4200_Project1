@@ -11,10 +11,12 @@ class AStarSearch
 public:
 	struct Solution
 	{
+		Solution() {}
 		Node finalNode;
+		int nodeCount = 0;
 	};
 	static Solution* Search(Problem* problem, Heuristic* heuristic);
 private:
-	static Node* ChildNode(Problem* problem, Heuristic* heuristic, Node* parent, Action* action);
+	static Node* ChildNode(Problem* problem, Heuristic* heuristic, shared_ptr<Node> parent, Action* action);
 };
 

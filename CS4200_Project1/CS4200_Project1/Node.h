@@ -18,8 +18,9 @@ private:
 	int estimatedCost; // g(n) + h(n)
 	int depth;
 public:
-	Node(State* state, Node* parent, Action* action, int pathCost, int estimatedCost);
-	Node* GetParent();
+	Node(State* state, shared_ptr<Node> parent, Action* action, int pathCost, int estimatedCost);
+	Node() {}
+	shared_ptr<Node> GetParent();
 	State* GetState();
 	int GetEstimatedCost();
 	int GetPathCost();

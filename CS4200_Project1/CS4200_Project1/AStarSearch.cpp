@@ -6,7 +6,7 @@ using namespace std;
 
 AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristic)
 {
-	shared_ptr<Node> node(new Node(problem->InitialState(), nullptr, nullptr, 0, 0)); // might need to be shared_ptr?
+	shared_ptr<Node> node(new Node(problem->InitialState(), nullptr, nullptr, 0, 0));
 	priority_queue<Node, vector<Node>, CompareNodes> frontier;
 	vector<Node> frontierList; // for searching the frontier
 	Solution* solution = new Solution();
@@ -17,7 +17,8 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristi
 
 	while (!frontier.empty())
 	{
-		*node = frontier.top();
+		//Node nodePtr = frontier.top();
+		node = shared_ptr<Node>(new Node(frontier.top()));
 		frontier.pop();
 		if (problem->GoalTest(node->GetState()))
 		{
@@ -29,8 +30,9 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristi
 
 		for (int i = 0; i < actions.size(); i++)
 		{
-			Node* child = ChildNode(problem, heuristic, &*node, actions[i]);
+			Node* child = ChildNode(problem, heuristic, node, actions[i]);
 			if (child == nullptr) continue;
+			solution->nodeCount++;
 			State* childState = child->GetState();
 			bool found = false;
 			int frontierPos;
@@ -71,7 +73,7 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristi
 	return solution;
 }
 
-Node* AStarSearch::ChildNode(Problem* problem, Heuristic* heuristic, Node* parent, Action* action)
+Node* AStarSearch::ChildNode(Problem* problem, Heuristic* heuristic, shared_ptr<Node> parent, Action* action)
 {
 	//Node* parent = new Node(parent);
 	State* state; 

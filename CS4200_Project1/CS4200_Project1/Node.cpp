@@ -1,6 +1,6 @@
 #include "Node.h"
 
-Node::Node(State* state, Node* parent, Action* action, int pathCost, int estimatedCost)
+Node::Node(State* state, shared_ptr<Node> parent, Action* action, int pathCost, int estimatedCost)
 {
 	this->state = state;
 	this->parent = parent;
@@ -19,7 +19,7 @@ State* Node::GetState()
 	return state;
 }
 
-Node* Node::GetParent()
+shared_ptr<Node> Node::GetParent()
 {
 	return parent;
 }
