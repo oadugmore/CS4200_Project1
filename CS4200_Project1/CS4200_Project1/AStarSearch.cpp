@@ -20,6 +20,7 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristi
 		//Node nodePtr = frontier.top();
 		node = shared_ptr<Node>(new Node(frontier.top()));
 		frontier.pop();
+		cout << "Distance from goal: " << node->GetEstimatedCost() << endl;
 		if (problem->GoalTest(node->GetState()))
 		{
 			solution->finalNode = *node;
@@ -33,6 +34,7 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristi
 			Node* child = ChildNode(problem, heuristic, node, actions[i]);
 			if (child == nullptr) continue;
 			solution->nodeCount++;
+			cout << "Nodes generated: " << solution->nodeCount << endl;
 			State* childState = child->GetState();
 			bool found = false;
 			int frontierPos;
@@ -65,6 +67,17 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristi
 			else if (frontierList[frontierPos].GetEstimatedCost() > child->GetEstimatedCost())
 			{
 				cout << "Replace child in frontier..." << endl;
+				frontier = priority_queue<Node, vector<Node>, CompareNodes>(); // clear priority queue
+				for (int i = 0; i < frontierPos; i++)
+				{
+					frontier.push(frontierList[i]);
+				}
+				frontier.push(*child);
+				for (int i = frontierPos + 1; i < frontierList.size(); i++)
+				{
+					frontier.push(frontierList[i]);
+				}
+
 			}
 
 		}

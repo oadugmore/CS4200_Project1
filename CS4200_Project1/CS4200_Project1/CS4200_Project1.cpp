@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "EightPuzzleProblem.h"
 #include "AStarSearch.h"
 #include "MisplacedTilesHeuristic.h"
@@ -13,11 +14,28 @@ void printState(PuzzleState state)
 	}
 }
 
+bool solvable(vector<int> stateData)
+{
+	int inversions = 0;
+	for (int i = 0; i < STATE_SIZE - 1; i++)
+	{
+		if (stateData[i] > stateData[i + 1]) inversions++;
+	}
+	return (inversions % 2 == 0);
+}
+
 int main()
 {
     std::cout << "Program: Eight-Puzzle-Problem" << endl << endl;
-	vector<int> sampleStateData({ 1, 4, 2, 3, 7, 5, 6, 8, 0 });
-	PuzzleState sampleState(sampleStateData);
+	vector<int> stateData({ 1, 4, 2, 3, 7, 5, 6, 8, 0 });
+	bool viable = false;
+	while (!viable)
+	{
+		random_shuffle(stateData.begin(), stateData.end());
+		viable = solvable(stateData);
+	}
+
+	PuzzleState sampleState(stateData);
 	EightPuzzleProblem problem(sampleState);
 	MisplacedTilesHeuristic h1;
 	TileDistanceHeuristic h2;
