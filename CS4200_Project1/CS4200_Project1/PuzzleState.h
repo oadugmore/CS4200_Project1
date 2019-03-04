@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 #include "State.h"
 
 using namespace std;
@@ -13,14 +14,14 @@ public:
 	PuzzleState() {}
 	PuzzleState(vector<int> stateData) { this->stateData = stateData; }
 	vector<int> StateData() const { return stateData; }
-	bool State::operator==(const State &other)
+	bool operator==(const State &other)
 	{
+		//cout << "Compared states" << endl;
 		for (int i = 0; i < stateData.size(); i++)
 		{
 			if (static_cast<const PuzzleState*>(&other)->StateData()[i] != stateData[i]) return false;
-			return true;
 		}
-		return false;
+		return true;
 	}
 	
 };

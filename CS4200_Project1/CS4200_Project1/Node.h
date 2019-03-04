@@ -31,6 +31,6 @@ class CompareNodes
 public:
 	bool operator() (Node a, Node b)
 	{
-		return a.GetEstimatedCost() > b.GetEstimatedCost();
+		return a.GetEstimatedCost() + a.GetPathCost() > b.GetEstimatedCost() + b.GetPathCost();
 	}
 };

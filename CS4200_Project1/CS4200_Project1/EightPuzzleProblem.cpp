@@ -18,7 +18,6 @@ vector<Action*> EightPuzzleProblem::GetActions()
 		MoveAction* a = new MoveAction(static_cast<MoveAction::MoveActionType>(i)); // delete heap data
 		actions.push_back(a);
 	}
-	//return static_cast<vector<Action>*>(actions);
 	return actions;
 }
 

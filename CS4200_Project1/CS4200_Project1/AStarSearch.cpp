@@ -40,7 +40,7 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristi
 			int frontierPos;
 			for (int i = 0; i < frontierList.size(); i++)
 			{
-				if (childState == frontierList[i].GetState())
+				if (*childState == *frontierList[i].GetState())
 				{
 					found = true;
 					frontierPos = i;
@@ -51,7 +51,7 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristi
 			{
 				for (int i = 0; i < exploredSet.size(); i++)
 				{
-					if (childState == exploredSet[i].GetState())
+					if (*childState == *exploredSet[i].GetState())
 					{
 						found = true;
 						break;
