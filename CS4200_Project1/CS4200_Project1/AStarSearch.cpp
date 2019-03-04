@@ -4,6 +4,17 @@
 
 using namespace std;
 
+void removeElement(vector<Node>* vector, Node element)
+{
+	for (int i = 0; i < vector->size(); i++)
+	{
+		if ((*vector)[i].GetState() == element.GetState())
+		{
+			vector->erase(vector->begin() + i);
+		}
+	}
+}
+
 AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristic)
 {
 	shared_ptr<Node> node(new Node(problem->InitialState(), nullptr, nullptr, 0, 0));
@@ -14,12 +25,12 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristi
 	vector<Node> exploredSet;
 	frontier.push(*node);
 	frontierList.push_back(*node);
-
 	while (!frontier.empty())
 	{
 		//Node nodePtr = frontier.top();
 		node = shared_ptr<Node>(new Node(frontier.top()));
 		frontier.pop();
+		removeElement(&frontierList, *node);
 		cout << "Distance from goal: " << node->GetEstimatedCost() << endl;
 		if (problem->GoalTest(node->GetState()))
 		{
@@ -37,12 +48,14 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristi
 			cout << "Nodes generated: " << solution->nodeCount << endl;
 			State* childState = child->GetState();
 			bool found = false;
+			bool foundFrontier = false;
 			int frontierPos;
 			for (int i = 0; i < frontierList.size(); i++)
 			{
 				if (*childState == *frontierList[i].GetState())
 				{
 					found = true;
+					foundFrontier = true;
 					frontierPos = i;
 					break;
 				}
@@ -64,10 +77,11 @@ AStarSearch::Solution* AStarSearch::Search(Problem* problem, Heuristic* heuristi
 				frontier.push(*child);
 				frontierList.push_back(*child);
 			}
-			else if (frontierList[frontierPos].GetEstimatedCost() > child->GetEstimatedCost())
+			else if (foundFrontier && frontierList[frontierPos].GetEstimatedCost() > child->GetEstimatedCost())
 			{
 				cout << "Replace child in frontier..." << endl;
 				frontier = priority_queue<Node, vector<Node>, CompareNodes>(); // clear priority queue
+				// so we can replace this node
 				for (int i = 0; i < frontierPos; i++)
 				{
 					frontier.push(frontierList[i]);

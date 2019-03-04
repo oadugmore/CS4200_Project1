@@ -33,7 +33,7 @@ bool solvable(vector<int> stateData)
 int main()
 {
     cout << "Program: Eight-Puzzle-Problem" << endl << endl;
-	vector<int> stateData({ 1, 0, 5, 3, 2, 4, 6, 7, 8 });
+	vector<int> stateData({ 1, 3, 6, 8, 0, 2, 7, 4, 5 });
 	bool viable = false;
 	while (!viable)
 	{
@@ -43,24 +43,16 @@ int main()
 
 	cout << "Found potential valid state: " << endl;
 	printState(stateData);
-	string input;
-	getline(cin, input);
 
 	PuzzleState sampleState(stateData);
 	EightPuzzleProblem problem(sampleState);
 	MisplacedTilesHeuristic h1;
 	TileDistanceHeuristic h2;
-	unique_ptr<AStarSearch::Solution> solution(AStarSearch::Search(&problem, &h1));
+	unique_ptr<AStarSearch::Solution> solution(AStarSearch::Search(&problem, &h2));
 	//cout << solutionState << endl;
 	// solution(search.Search(problem, h1));
 	cout << "Start state: \n";
 	printState(sampleState);
-	//cout << endl << "Move down" << endl << endl;
-	//unique_ptr<PuzzleState> newState (problem.Result(sampleState, MoveAction(MoveAction::Down)));
-	//cout << "Ran result function. Sample state: \n";
-	//printState(sampleStateData);
-	//cout << "New state:\n";
-	//printState(newState->StateData());
 	Node n = solution->finalNode;
 	unique_ptr<PuzzleState> state(static_cast<PuzzleState*>(n.GetState()));
 	cout << "Path from goal to start state:" << endl << endl;
@@ -72,7 +64,8 @@ int main()
 		printState(*(static_cast<PuzzleState*>(n.GetState())));
 	}
 
-	cout << endl << endl << "Number of nodes generated: " << solution->nodeCount << endl;
+	cout << endl << endl << "Depth: " << solution->finalNode.GetPathCost() << endl;
+	cout << "Number of nodes generated: " << solution->nodeCount << endl;
 	
 	return 0;
 }
